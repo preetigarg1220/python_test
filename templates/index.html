@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Python Demo App</title>
+</head>
+<body>
+
+    <h2>Sum Calculator (Python + MongoDB)</h2>
+
+    <form method="POST">
+        <input type="number" name="num1" placeholder="Enter first number" required>
+        <input type="number" name="num2" placeholder="Enter second number" required>
+        <button type="submit">Calculate</button>
+    </form>
+
+    {% if result is not none %}
+        <h3>Result: {{ result }}</h3>
+    {% endif %}
+
+    <hr>
+
+    <h3>Saved Records (From Database)</h3>
+
+    {% for item in data %}
+        <p>{{ item.num1 }} + {{ item.num2 }} = {{ item.sum }}</p>
+    {% endfor %}
+
+</body>
+</html>
