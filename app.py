@@ -5,21 +5,10 @@ import os
 
 app = Flask(__name__)
 
-
-
 # Use environment variable for MongoDB URI
-# MONGO_URI = os.environ.get("MONGO_URI")
+MONGO_URI = os.environ.get("MONGO_URI")
+client = MongoClient(MONGO_URI, tlsCAFile=certifi.where())
 
-# client = MongoClient(
-#     MONGO_URI,
-#     tlsCAFile=certifi.where()
-# )
-MONGO_URI = os.environ.get("MONGO_URI", "mongodb+srv://admin:Demo123@cluster0.9hitnm3.mongodb.net/?retryWrites=true&w=majority")
-client = pymongo.MongoClient(MONGO_URI)
-# client = MongoClient(
-#     "mongodb+srv://admin:Demo123@cluster0.9hitnm3.mongodb.net/?retryWrites=true&w=majority",
-#     tlsCAFile=certifi.where()
-# )
 db = client["client_demo"]
 collection = db["sum_data"]
 
@@ -41,4 +30,5 @@ def home():
     return render_template('index.html', result=result, data=data)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port)
